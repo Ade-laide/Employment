@@ -1,0 +1,66 @@
+﻿@model Employment.Models.SCREEN2
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SCREEN2</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProjectName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectManager)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProjectManager)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectStartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProjectStartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectEndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProjectEndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Department)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Admin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Admin)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.EmployeeID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

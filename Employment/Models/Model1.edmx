@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="LoginTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SCREEN1">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EntryDate" Type="datetime" Nullable="false" />
+          <Property Name="EmploymentDate" Type="datetime" Nullable="false" />
+          <Property Name="Salary" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsTheEmployeeVaxx" Type="bit" Nullable="false" />
+          <Property Name="Age" Type="int" Nullable="false" />
+          <Property Name="Position" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Admin" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SCREEN2">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProjectManager" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProjectStartDate" Type="date" Nullable="false" />
+          <Property Name="ProjectEndDate" Type="date" Nullable="false" />
+          <Property Name="Department" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Admin" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID" Type="int" />
+        </EntityType>
+        <EntityType Name="SCREEN3">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Screen1_ID" Type="int" Nullable="false" />
+          <Property Name="Screen2_ID" Type="int" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="SignUp">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_SCREEN2_SCREEN1">
+          <End Role="SCREEN1" Type="Self.SCREEN1" Multiplicity="0..1" />
+          <End Role="SCREEN2" Type="Self.SCREEN2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SCREEN1">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SCREEN2">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SCREEN3_SCREEN1">
+          <End Role="SCREEN1" Type="Self.SCREEN1" Multiplicity="1" />
+          <End Role="SCREEN3" Type="Self.SCREEN3" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SCREEN1">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SCREEN3">
+              <PropertyRef Name="Screen1_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SCREEN3_SCREEN2">
+          <End Role="SCREEN2" Type="Self.SCREEN2" Multiplicity="1" />
+          <End Role="SCREEN3" Type="Self.SCREEN3" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SCREEN2">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="SCREEN3">
+              <PropertyRef Name="Screen2_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="LoginTable" EntityType="Self.LoginTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SCREEN1" EntityType="Self.SCREEN1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SCREEN2" EntityType="Self.SCREEN2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SCREEN3" EntityType="Self.SCREEN3" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SignUp" EntityType="Self.SignUp" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_SCREEN2_SCREEN1" Association="Self.FK_SCREEN2_SCREEN1">
+            <End Role="SCREEN1" EntitySet="SCREEN1" />
+            <End Role="SCREEN2" EntitySet="SCREEN2" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SCREEN3_SCREEN1" Association="Self.FK_SCREEN3_SCREEN1">
+            <End Role="SCREEN1" EntitySet="SCREEN1" />
+            <End Role="SCREEN3" EntitySet="SCREEN3" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SCREEN3_SCREEN2" Association="Self.FK_SCREEN3_SCREEN2">
+            <End Role="SCREEN2" EntitySet="SCREEN2" />
+            <End Role="SCREEN3" EntitySet="SCREEN3" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Medical_clinicEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="LoginTables" EntityType="Model.LoginTable" />
+          <EntitySet Name="SCREEN1" EntityType="Model.SCREEN1" />
+          <EntitySet Name="SCREEN2" EntityType="Model.SCREEN2" />
+          <EntitySet Name="SCREEN3" EntityType="Model.SCREEN3" />
+          <EntitySet Name="SignUps" EntityType="Model.SignUp" />
+          <AssociationSet Name="FK_SCREEN2_SCREEN1" Association="Model.FK_SCREEN2_SCREEN1">
+            <End Role="SCREEN1" EntitySet="SCREEN1" />
+            <End Role="SCREEN2" EntitySet="SCREEN2" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SCREEN3_SCREEN1" Association="Model.FK_SCREEN3_SCREEN1">
+            <End Role="SCREEN1" EntitySet="SCREEN1" />
+            <End Role="SCREEN3" EntitySet="SCREEN3" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SCREEN3_SCREEN2" Association="Model.FK_SCREEN3_SCREEN2">
+            <End Role="SCREEN2" EntitySet="SCREEN2" />
+            <End Role="SCREEN3" EntitySet="SCREEN3" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="LoginTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SCREEN1">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EmploymentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Salary" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsTheEmployeeVaxx" Type="Boolean" Nullable="false" />
+          <Property Name="Age" Type="Int32" Nullable="false" />
+          <Property Name="Position" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Admin" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SCREEN2" Relationship="Model.FK_SCREEN2_SCREEN1" FromRole="SCREEN1" ToRole="SCREEN2" />
+          <NavigationProperty Name="SCREEN3" Relationship="Model.FK_SCREEN3_SCREEN1" FromRole="SCREEN1" ToRole="SCREEN3" />
+        </EntityType>
+        <EntityType Name="SCREEN2">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectManager" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectStartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ProjectEndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Department" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Admin" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID" Type="Int32" />
+          <NavigationProperty Name="SCREEN1" Relationship="Model.FK_SCREEN2_SCREEN1" FromRole="SCREEN2" ToRole="SCREEN1" />
+          <NavigationProperty Name="SCREEN3" Relationship="Model.FK_SCREEN3_SCREEN2" FromRole="SCREEN2" ToRole="SCREEN3" />
+        </EntityType>
+        <EntityType Name="SCREEN3">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Screen1_ID" Type="Int32" Nullable="false" />
+          <Property Name="Screen2_ID" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="SCREEN1" Relationship="Model.FK_SCREEN3_SCREEN1" FromRole="SCREEN3" ToRole="SCREEN1" />
+          <NavigationProperty Name="SCREEN2" Relationship="Model.FK_SCREEN3_SCREEN2" FromRole="SCREEN3" ToRole="SCREEN2" />
+        </EntityType>
+        <EntityType Name="SignUp">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_SCREEN2_SCREEN1">
+          <End Type="Model.SCREEN1" Role="SCREEN1" Multiplicity="0..1" />
+          <End Type="Model.SCREEN2" Role="SCREEN2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SCREEN1">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SCREEN2">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SCREEN3_SCREEN1">
+          <End Type="Model.SCREEN1" Role="SCREEN1" Multiplicity="1" />
+          <End Type="Model.SCREEN3" Role="SCREEN3" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SCREEN1">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SCREEN3">
+              <PropertyRef Name="Screen1_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SCREEN3_SCREEN2">
+          <End Type="Model.SCREEN2" Role="SCREEN2" Multiplicity="1" />
+          <End Type="Model.SCREEN3" Role="SCREEN3" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SCREEN2">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="SCREEN3">
+              <PropertyRef Name="Screen2_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Medical_clinicEntities2">
+          <EntitySetMapping Name="LoginTables">
+            <EntityTypeMapping TypeName="Model.LoginTable">
+              <MappingFragment StoreEntitySet="LoginTable">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SCREEN1">
+            <EntityTypeMapping TypeName="Model.SCREEN1">
+              <MappingFragment StoreEntitySet="SCREEN1">
+                <ScalarProperty Name="Admin" ColumnName="Admin" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="IsTheEmployeeVaxx" ColumnName="IsTheEmployeeVaxx" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="EmploymentDate" ColumnName="EmploymentDate" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SCREEN2">
+            <EntityTypeMapping TypeName="Model.SCREEN2">
+              <MappingFragment StoreEntitySet="SCREEN2">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Admin" ColumnName="Admin" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="ProjectEndDate" ColumnName="ProjectEndDate" />
+                <ScalarProperty Name="ProjectStartDate" ColumnName="ProjectStartDate" />
+                <ScalarProperty Name="ProjectManager" ColumnName="ProjectManager" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SCREEN3">
+            <EntityTypeMapping TypeName="Model.SCREEN3">
+              <MappingFragment StoreEntitySet="SCREEN3">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Screen2_ID" ColumnName="Screen2_ID" />
+                <ScalarProperty Name="Screen1_ID" ColumnName="Screen1_ID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SignUps">
+            <EntityTypeMapping TypeName="Model.SignUp">
+              <MappingFragment StoreEntitySet="SignUp">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

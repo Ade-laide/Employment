@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Employment.Models.SCREEN3>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SCREEN1.EmployeeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SCREEN2.ProjectName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SCREEN1.EmployeeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SCREEN2.ProjectName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+        |
+            @if (item.Status.ToLower() == "complete")
+            {
+                @Html.ActionLink("Complete", "Complete", new { id = item.Id })
+            }
+            else
+            {
+                @Html.ActionLink("InComplete", "InComplete", new { id = item.Id })
+            }
+            |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>

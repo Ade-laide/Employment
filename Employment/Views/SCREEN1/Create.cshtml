@@ -1,0 +1,222 @@
+﻿@model Employment.Models.SCREEN1
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+@if (TempData["msg"] != null)
+{
+    <label style="text-align:center;color:red;font-size:20px;font-weight:bold">@TempData["msg"]</label>
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>SCREEN1</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmployeeName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EmployeeName, new { htmlAttributes = new { @class = "form-control", @id = "employeename" } })
+                @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EntryDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.EntryDate, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.TextBoxFor(x => x.EntryDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @id = "entrydate" })
+
+                @Html.ValidationMessageFor(model => model.EntryDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmploymentDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EmploymentDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EmploymentDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Salary, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Salary, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsTheEmployeeVaxx, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IsTheEmployeeVaxx, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.IsTheEmployeeVaxx, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.TextBoxFor(model => model.Age, new { htmlAttributes = new { @class = "form-control", @maxlength = "2", @minlength = "0", @type = "number", @id = "age" } })*@
+                <input type="text" class="form-control" name="age" id="age" />
+                @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Position, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Position", new List<SelectListItem>
+        {
+                           new SelectListItem{Text="Software Engineer",Value="Software Engineer",Selected=true},
+                            new SelectListItem{Text="Data Analyst",Value="Data Analyst"},
+                            new SelectListItem{Text="BI Developer",Value="BI Developer"},
+                            new SelectListItem{Text="DataBase Engineer",Value="Database Engineer"},
+                            new SelectListItem{Text="FrontEnd Developer",Value="FrontEnd Developer"},
+
+                                   })
+
+
+                @*@Html.EditorFor(model => model.Position, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Admin, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Admin, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.userid } })
+                @Html.ValidationMessageFor(model => model.Admin, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Edit" class="btn btn-default" />
+                <input type="submit" value="Delete" class="btn btn-default" />
+
+
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        // Select your input element.
+        var number = document.getElementById('age');
+
+        // Listen for input event on numInput.
+        number.onkeydown = function (e) {
+
+            if (!((e.keyCode > 95 && e.keyCode < 106)
+                || (e.keyCode > 47 && e.keyCode < 58)
+                || e.keyCode == 8)) {
+
+                return false;
+
+            }
+        }
+        $('#age').keypress(function () {
+            return this.value.length < 2
+        })
+        //$("table tr input").on('click', function (e) {
+        //    var rowIndex = $(this).closest('td').parent()[0].sectionRowIndex;
+        //    var id = $('table tr').eq(rowIndex).find('td').eq(0).text();
+        //    var employeename = $('table tr').eq(rowIndex).find('td').eq(2).text();
+        //    var entrydate = $('table tr').eq(rowIndex).find('td').eq(3).text();
+        //    var employeementdate = $('table tr').eq(rowIndex).find('td').eq(4).text();
+        //    var salary = $('table tr').eq(rowIndex).find('td').eq(5).text();
+        //    var istheemployee = $('table tr').eq(rowIndex).find('td').eq(6).text();
+        //    var age = $('table tr').eq(rowIndex).find('td').eq(7).text();
+        //    var position = $('table tr').eq(rowIndex).find('td').eq(8).text();
+        //    var admin = $('table tr').eq(rowIndex).find('td').eq(9).text();
+        //    $("#employeename").val(employeename);
+        //});
+    </script>
+}
+
+
+
+
+
+@*<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EntryDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmploymentDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Salary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsTheEmployeeVaxx)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Position)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Admin)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in ViewBag.screenList)
+    {
+        <tr>
+            <td hidden>
+                @item.ID
+            </td>
+            <td>
+                @item.EmployeeName
+            </td>
+            <td>
+                @item.EntryDate
+            </td>
+            <td>
+                @item.EmploymentDate
+            </td>
+            <td>
+                @item.Salary
+            </td>
+            <td>
+                @item.IsTheEmployeeVaxx
+            </td>
+            <td>
+                @item.Age
+            </td>
+            <td>
+                @item.Position
+            </td>
+            <td>
+                @item.Admin
+            </td>
+            <td><input type="button" value="Select" id="select1" /> </td>
+
+        </tr>
+    }
+
+</table>*@
+
